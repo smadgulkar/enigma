@@ -112,9 +112,3 @@ class Enigma:
                 f.write(decrypted)
             Path.unlink(file)
 
-
-engima = Enigma()
-# engima.encrypt("test7.png")
-# engima.decrypt("encryptedtest7.png")
-# engima.encrypt_folder("D:/Local Work Files/Empire/testImg")
-engima.decrypt_folder("D:/Local Work Files/Empire/testImg")

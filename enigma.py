@@ -15,8 +15,8 @@ class Enigma:
         pass
 
     def gen_key(self, password):
-        password_provided = password  # This is input in the form of a string
-        password = password_provided.encode()  # Convert to type bytes
+        password_provided = password  
+        password = password_provided.encode()  
         salt = b"\xa1\x1c\xbd\x13s\x90G\xe5\x17,#\x95\xd3\x86&\xe3"
         kdf = PBKDF2HMAC(
             algorithm=hashes.SHA256(),
@@ -111,4 +111,37 @@ class Enigma:
             with open(output_file, "wb") as f:
                 f.write(decrypted)
             Path.unlink(file)
+
+    def run(self):
+        intfunction = input("Please choose whether you want to Encrypt (e) or Decrypt (d).\n")
+        if intfunction == "e":
+            dest = input("Please choose whether you want to encrypt a file (f) or folder (r).\n")
+        elif intfunction == "d":
+            dest = input("Please choose whether you want to decrypt a file (f) or folder (r).\n")
+        else: 
+            print("Please check your inputs.")
+        if dest == "f":
+            path = input("Please enter the full path to your file.\n")
+        elif dest == "r":
+            path = input("Please enter the full path to your folder.\n")
+
+        if intfunction == "e" and dest == "f":
+            self.encrypt(path)
+        elif intfunction == "e" and dest == "r":
+            self.encrypt_folder(path)
+        elif intfunction == "d" and dest == "f":
+            self.decrypt(path)
+        elif intfunction == "d" and dest == "r":
+            self.decrypt_folder(path)
+        else:
+            print("Please check you inputs.")
+
+
+if __name__ == "__main__":
+    Enigma().run()
+
+
+        
+
+
 

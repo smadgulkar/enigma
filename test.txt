@@ -1,2 +1,0 @@
-this file is a test
-we will test it in the encryption program

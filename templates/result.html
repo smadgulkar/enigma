@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Processing Result - Enigma Web</title>
+</head>
+<body>
+    <h1>File Processing Complete</h1>
+
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <ul class=flashes style="list-style-type:none; padding:0;">
+        {% for message in messages %}
+          <li style="color: {% if 'Error' in message or 'failed' in message %}red{% else %}green{% endif %};">{{ message }}</li>
+        {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+
+    <p><strong>Original file:</strong> {{ original_filename }}</p>
+    <p><strong>Action performed:</strong> {{ action_performed.title() }}</p>
+    <p><strong>Output file:</strong> {{ processed_filename }}</p>
+
+    <p><a href="{{ url_for('download_file', filename=processed_filename) }}" style="font-size: 1.2em; font-weight: bold;">Download {{ processed_filename }}</a></p>
+
+    <hr>
+    <p><a href="{{ url_for('upload_file_route') }}">Process another file</a></p>
+    <p><a href="{{ url_for('index') }}">Back to Home</a></p>
+</body>
+</html>

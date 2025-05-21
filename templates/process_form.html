@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ action.title() }} File - Enigma Web</title>
+</head>
+<body>
+    <h1>Enter password to {{ action }} file: <strong>{{ filename }}</strong></h1>
+
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <ul class=flashes style="list-style-type:none; padding:0;">
+        {% for message in messages %}
+          <li style="color: {% if 'Error' in message or 'failed' in message or 'required' in message %}red{% else %}green{% endif %};">{{ message }}</li>
+        {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+
+    <form method="POST" action="{{ url_for('process_file', action=action, filename=filename) }}">
+        <p>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+        </p>
+        <p><input type="submit" value="{{ action.title() }} File"></p>
+    </form>
+
+    <p><a href="{{ url_for('show_actions', filename=filename) if filename else url_for('upload_file_route') }}">Back to Actions for {{ filename }}</a></p>
+    <p><a href="{{ url_for('index') }}">Back to Home</a></p>
+</body>
+</html>
